@@ -1,0 +1,42 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "100.30.74.60",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "aadd_2526_mysql",
+            "username": "alumno",
+            "database": "sakila"
+        },
+        {
+            "server": "localhost",
+            "port": 9042,
+            "previewLimit": 50,
+            "askForPassword": true,
+            "driver": "Cassandra",
+            "name": "cassnadra"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3333,
+            "driver": "MySQL",
+            "name": "miniProyectoOne2One",
+            "database": "credenciales",
+            "username": "root",
+            "askForPassword": true
+        }
+    ]
+}
