@@ -1,9 +1,12 @@
 package es.ciudadescolar.persistencia.dao;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.ciudadescolar.dominio.modelo.Usuario;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 public class UsuarioDAO
 {
@@ -49,7 +52,7 @@ public class UsuarioDAO
         }
     }
 
-    private void eliminarPorId(Long idUsuario) {
+    public void eliminarPorId(Long idUsuario) {
         Usuario userAEliminar = em.find(Usuario.class, idUsuario);
 
         if (userAEliminar != null) {
@@ -57,12 +60,28 @@ public class UsuarioDAO
         }
     }
 
-    private void eliminar(Usuario user) {
+    public void eliminar(Usuario user) {
         Usuario userAEliminar = em.find(Usuario.class, user.getUsuarioId());
 
         if (user != null) {
             em.remove(userAEliminar);
         }
     }
+
+    public Usuario buscarPorEmail(String email) {
+        TypedQuery<Usuario> consulta = em.createQuery("SELECT u FROM Usuario u WHERE u.email = :correo", Usuario.class);
+
+        consulta.setParameter("correo", email);
+
+        List<Usuario> lista = new ArrayList<>();
+
+        if (lista.isEmpty()) {
+            return null;
+        } else {
+            return lista.get(0);
+        }
+    }
+
+
 
 }

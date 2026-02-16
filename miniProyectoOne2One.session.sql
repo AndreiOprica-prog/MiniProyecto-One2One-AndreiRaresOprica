@@ -1,2 +1,2 @@
 
-SELECT * FROM perfil;
+SELECT * FROM usuario;

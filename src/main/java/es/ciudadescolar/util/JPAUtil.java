@@ -16,9 +16,9 @@ public class JPAUtil
     {
         LOG.debug("Creando pool de conexiones...");
 
-        emf = Persistence.createEntityManagerFactory("PersistenciaInstituto");
+        emf = Persistence.createEntityManagerFactory("PersistenciaUsuarios");
 
-    }    
+    } 
 
     public static EntityManager getEntityManager() 
     {
