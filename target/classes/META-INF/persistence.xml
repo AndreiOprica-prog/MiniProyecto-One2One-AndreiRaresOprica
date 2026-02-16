@@ -73,10 +73,10 @@
 				Si prefiero que sólo esté la BD en RAM mientras nuestra app esté abierta:
 					<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:instituto"/>
 			-->
-			<property name="hibernate.hikari.jdbcUrl" value="jdbc:h2:./data/instituto;AUTO_SERVER=TRUE"/>
-			<property name="hibernate.hikari.username" value="sa"/> <!-- System Administrator, usuario por defecto de H2 -->
-			<property name="hibernate.hikari.password" value=""/> <!-- Password vacío = práctica común para bases de desarrollo. Nunca PRODUCCIÓN-->
-
+			<property name="hibernate.hikari.jdbcUrl" value="jdbc:mysql://localhost:3333/credenciales"/>
+			<property name="hibernate.hikari.username" value="root"/> <!-- System Administrator, usuario por defecto de H2 -->
+			<property name="hibernate.hikari.password" value="Root2425"/> <!-- Password vacío = práctica común para bases de desarrollo. Nunca PRODUCCIÓN-->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <!-- Con hibernate.hbm2ddl.auto = update: Se actualiza automáticamente el esquema de la base de datos 
 			según las entidades JPA cada vez que arranca la aplicación. Cuando la aplicación se inicia, Hibernate:
 				Posibles valores:
@@ -90,7 +90,7 @@
 
                 📌 En producción: Hibernate NO debe modificar el esquema. Se usan: validate y none
             -->
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
 
 		</properties>
 

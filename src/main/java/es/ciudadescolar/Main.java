@@ -22,7 +22,7 @@ public class Main
 
             LocalDate fechaAndrei = LocalDate.of(2005, 9, 12);
 
-            service.registrarusuario("Andrei Rares", "Oprica", fechaAndrei, "andrei.oprica@educa.madrid.org");
+            Long idUsuario = service.registrarusuario("Andrei Rares", "Oprica", fechaAndrei, "andrei.oprica@educa.madrid.org");
         }
         catch (Exception e)
         {

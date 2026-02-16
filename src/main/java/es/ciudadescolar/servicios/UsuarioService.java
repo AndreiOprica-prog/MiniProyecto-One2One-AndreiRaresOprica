@@ -15,9 +15,10 @@ public class UsuarioService
 {
     private static final Logger LOG = LoggerFactory.getLogger(UsuarioService.class);
 
-    public void registrarusuario(String nombre, String apellidos, LocalDate fecha_nacimiento, String email) {
+    public Long registrarusuario(String nombre, String apellidos, LocalDate fecha_nacimiento, String email) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction trans = em.getTransaction();
+        Long idUsuario = -1L;
 
         try
         {
@@ -35,6 +36,8 @@ public class UsuarioService
 
             trans.commit();
             LOG.debug("Usuario registrado: " + user.toString());
+
+            idUsuario = user.getUsuarioId();
         }
         catch (RuntimeException e)
         {
@@ -63,6 +66,8 @@ public class UsuarioService
                 // Aquí no propagamos la excepción para evitar ocultar la excepción original que pudo motivar el rollback o fallo de negocio.
             }
         }
+
+        return idUsuario;
     }
     
 }

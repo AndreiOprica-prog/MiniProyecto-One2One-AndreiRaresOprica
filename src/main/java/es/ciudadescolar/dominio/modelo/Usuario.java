@@ -15,7 +15,6 @@ public class Usuario
 {
     private static final long serialVersionUID = 1L;
 
-
     @Id // El atributo encontrado debajo de esta sentencia es la clave primaria de la tabla
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Fijar la clase como una entidad *solo se una en la clave primaria*
     @Column(name = "id_usuario") // Vincular el atributo a la columna *el nombre tiene que ser el de la tabla*
