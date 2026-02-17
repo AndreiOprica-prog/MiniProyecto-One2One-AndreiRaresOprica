@@ -13,6 +13,7 @@
 
 <!-- Aquí debemos indicar las clases a persistir que dispondrán de las correspondientes anotiaciones JPA -->
 <class>es.ciudadescolar.dominio.modelo.Usuario</class>
+<class>es.ciudadescolar.dominio.modelo.Perfil</class>
 
 <properties>
 
@@ -76,7 +77,7 @@
 			<property name="hibernate.hikari.jdbcUrl" value="jdbc:mysql://localhost:3333/credenciales"/>
 			<property name="hibernate.hikari.username" value="root"/> <!-- System Administrator, usuario por defecto de H2 -->
 			<property name="hibernate.hikari.password" value="Root2425"/> <!-- Password vacío = práctica común para bases de desarrollo. Nunca PRODUCCIÓN-->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <!-- Con hibernate.hbm2ddl.auto = update: Se actualiza automáticamente el esquema de la base de datos 
 			según las entidades JPA cada vez que arranca la aplicación. Cuando la aplicación se inicia, Hibernate:
 				Posibles valores:

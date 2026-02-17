@@ -30,11 +30,14 @@ public class UsuarioService
 
             if (user == null) {
                 user = new Usuario(nombre, apellidos, fecha_nacimiento, email);
+
+                em.persist(user);
             } else {
                 LOG.warn("Ya existe un usuario con el email " + email + " en la BD.");
             }
 
             trans.commit();
+
             LOG.debug("Usuario registrado: " + user.toString());
 
             idUsuario = user.getUsuarioId();
@@ -46,7 +49,7 @@ public class UsuarioService
             if (trans != null && trans.isActive()) 
             {
                 trans.rollback();
-                    LOG.debug("Rollback de la transacción.");
+                LOG.debug("Rollback de la transacción.");
             }
 
             throw e; // Propagamos error al main o a la capa superior

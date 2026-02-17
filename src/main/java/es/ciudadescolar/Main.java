@@ -5,8 +5,11 @@ import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.ciudadescolar.dominio.modelo.Usuario;
+import es.ciudadescolar.servicios.PerfilService;
 import es.ciudadescolar.servicios.UsuarioService;
 import es.ciudadescolar.util.JPAUtil;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 
 public class Main
@@ -18,11 +21,12 @@ public class Main
         
         try
         {
-            UsuarioService service = new UsuarioService();
-
+            UsuarioService user_service = new UsuarioService();
             LocalDate fechaAndrei = LocalDate.of(2005, 9, 12);
+            Long idUsuario = user_service.registrarusuario("Andrei Rares", "Oprica", fechaAndrei, "andrei.oprica@educa.madrid.org");
 
-            Long idUsuario = service.registrarusuario("Andrei Rares", "Oprica", fechaAndrei, "andrei.oprica@educa.madrid.org");
+            // PerfilService perf_service = new PerfilService();
+            // Long idPerfil = perf_service.registrarPerfilConUsuario("Opricus06", "gshisfpasabsibs", idUsuario);
         }
         catch (Exception e)
         {

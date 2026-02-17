@@ -24,6 +24,10 @@ public class UsuarioDAO
         em.merge(user);
     }
 
+    public void eliminar(Usuario user) {
+        em.remove(user);
+    }
+
     public void actualizarEmailUsuario(Long idUsuario, String emailNuevo) {
         Usuario userBuscado = em.find(Usuario.class, idUsuario);
         if (userBuscado != null) {
@@ -56,14 +60,6 @@ public class UsuarioDAO
         Usuario userAEliminar = em.find(Usuario.class, idUsuario);
 
         if (userAEliminar != null) {
-            em.remove(userAEliminar);
-        }
-    }
-
-    public void eliminar(Usuario user) {
-        Usuario userAEliminar = em.find(Usuario.class, user.getUsuarioId());
-
-        if (user != null) {
             em.remove(userAEliminar);
         }
     }
