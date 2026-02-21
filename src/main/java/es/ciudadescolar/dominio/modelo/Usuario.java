@@ -1,24 +1,28 @@
 package es.ciudadescolar.dominio.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario
+public class Usuario implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     @Id // El atributo encontrado debajo de esta sentencia es la clave primaria de la tabla
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Fijar la clase como una entidad *solo se una en la clave primaria*
     @Column(name = "id_usuario") // Vincular el atributo a la columna *el nombre tiene que ser el de la tabla*
-    private Long usuarioId;
+    private Integer usuarioId;
 
     @Column(name = "nombre", nullable = false) // Vincular el atributo a la columna *el nombre tiene que ser el de la tabla*
     private String nombre;
@@ -31,11 +35,14 @@ public class Usuario
 
     @Column(name = "email", unique = true) // Vincular el atributo a la columna *el nombre tiene que ser el de la tabla*
     private String email;
+
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Perfil perfil;
     
-    public Long getUsuarioId() {
+    public Integer getUsuarioId() {
         return usuarioId;
     }
-    public void setUsuarioId(Long usuarioId) {
+    public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
     public String getNombre() {
@@ -77,6 +84,7 @@ public class Usuario
     }
 
     public Usuario () {}
+    
     @Override
     public int hashCode() {
         final int prime = 31;

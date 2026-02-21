@@ -4,12 +4,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ciudadescolar.dominio.modelo.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 public class UsuarioDAO
 {
+    private static final Logger LOG = LoggerFactory.getLogger(Usuario.class);
+
     private final EntityManager em;
 
     public UsuarioDAO(EntityManager em) {
@@ -56,18 +61,41 @@ public class UsuarioDAO
         }
     }
 
-    public void eliminarPorId(Long idUsuario) {
-        Usuario userAEliminar = em.find(Usuario.class, idUsuario);
+    public void eliminarPorId(Integer idUsuario) {
+        Usuario userAEliminar = null;
 
-        if (userAEliminar != null) {
-            em.remove(userAEliminar);
+        TypedQuery<Usuario> consulta = em.createQuery("SELECT u FROM Usuario u WHERE u.usuarioId = :id", Usuario.class);
+        consulta.setParameter("id", idUsuario);
+
+        List<Usuario> lista = consulta.getResultList();
+
+        if (lista.isEmpty()) {
+            LOG.warn("No hay ningún usuario con ese ID: " + idUsuario);
+        } else {
+            userAEliminar = lista.get(0);
         }
+
+        em.remove(userAEliminar);
+        LOG.debug("Usuario con id " + userAEliminar.getUsuarioId() + " eliminado.");
     }
 
     public Usuario buscarPorEmail(String email) {
         TypedQuery<Usuario> consulta = em.createQuery("SELECT u FROM Usuario u WHERE u.email = :correo", Usuario.class);
 
         consulta.setParameter("correo", email);
+
+        List<Usuario> lista = consulta.getResultList();
+
+        if (lista.isEmpty()) {
+            return null;
+        } else {
+            return lista.get(0);
+        }
+    }
+
+    public Usuario buscarPorId(Integer usuarioId) {
+        TypedQuery<Usuario> consulta = em.createQuery("SELECT u FROM Usuario u WHERE u.usuarioId = :id", Usuario.class);
+        consulta.setParameter("id", usuarioId);
 
         List<Usuario> lista = new ArrayList<>();
 
@@ -78,6 +106,16 @@ public class UsuarioDAO
         }
     }
 
+    public List<Usuario> recuperarTodosusuarios() {
+        TypedQuery<Usuario> consulta = em.createQuery("Select u FROM Usuario u", Usuario.class);
+        List<Usuario> lista = consulta.getResultList();
 
+        if (!lista.isEmpty()) {
+            return lista;
+        } else {
+            LOG.warn("No se ha recuperado ningún usuario.");
+            return null;
+        }
+    }
 
 }

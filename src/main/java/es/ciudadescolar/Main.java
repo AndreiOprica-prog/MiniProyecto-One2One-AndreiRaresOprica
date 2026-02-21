@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.ciudadescolar.dominio.modelo.Usuario;
-import es.ciudadescolar.servicios.PerfilService;
 import es.ciudadescolar.servicios.UsuarioService;
 import es.ciudadescolar.util.JPAUtil;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.EntityManager;
 
 public class Main
 {
@@ -22,11 +21,21 @@ public class Main
         try
         {
             UsuarioService user_service = new UsuarioService();
-            LocalDate fechaAndrei = LocalDate.of(2005, 9, 12);
-            Long idUsuario = user_service.registrarusuario("Andrei Rares", "Oprica", fechaAndrei, "andrei.oprica@educa.madrid.org");
+            
+            // LocalDate fechaAndrei = LocalDate.of(2005, 9, 12);
+            // user_service.registrarUsuario("Andrei Rares", "Oprica", fechaAndrei, "andrei.oprica@educa.madrid.org", "Opricus40", "ahfahfgayfafv");
 
-            // PerfilService perf_service = new PerfilService();
-            // Long idPerfil = perf_service.registrarPerfilConUsuario("Opricus06", "gshisfpasabsibs", idUsuario);
+            // LocalDate fechaDiego = LocalDate.of(2006, 12, 15);
+            // user_service.registrarUsuario("Diego", "Ayensa Angulo", fechaDiego, "diego.ayensa@educa.madrid.org", "Diekote", "mibombo");
+            
+            // LocalDate fechaAlby = LocalDate.of(2006, 9, 6);
+            // user_service.registrarUsuario("Alberto", "Postigo Mora", fechaAlby, "alberto.postigo@educa.madrid.org", "Albyyy", "punpun");
+
+            user_service.eliminarUsuario(4);
+
+            // user_service.modificarPerfilUsuario(4, "Alberto diente");
+
+            // user_service.generarReporte();
         }
         catch (Exception e)
         {

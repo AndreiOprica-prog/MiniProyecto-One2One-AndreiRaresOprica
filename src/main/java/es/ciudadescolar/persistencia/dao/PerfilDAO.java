@@ -1,16 +1,20 @@
 package es.ciudadescolar.persistencia.dao;
 
-import java.time.LocalDate;
+// import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ciudadescolar.dominio.modelo.Perfil;
-import es.ciudadescolar.dominio.modelo.Usuario;
+// import es.ciudadescolar.dominio.modelo.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 public class PerfilDAO
 {
+    private static final Logger LOG = LoggerFactory.getLogger(PerfilDAO.class);
     private final EntityManager em;
 
     public PerfilDAO(EntityManager em) {
@@ -56,7 +60,7 @@ public class PerfilDAO
     }
 
     public Perfil buscarPorUsername(String username) {
-        TypedQuery<Perfil> consulta = em.createQuery("SELECT p FROM perfil p WHERE p.username = :nombreusuario", Perfil.class);
+        TypedQuery<Perfil> consulta = em.createQuery("SELECT p FROM Perfil p WHERE p.username = :nombreusuario", Perfil.class);
 
         consulta.setParameter("nombreusuario", username);
 
@@ -67,5 +71,25 @@ public class PerfilDAO
         } else {
             return lista.get(0);
         }
-    }    
+    } 
+    
+    public void modificarUsername(Perfil perf, String username) {
+        Perfil perfAModificar = em.find(Perfil.class, perf);
+        perfAModificar.setUsername(username);
+        LOG.debug("Username del perfil modificado a: " + perfAModificar.getUsername());
+    }
+
+    public Perfil buscarPorIdUsuario(Integer idUsuario) {
+        TypedQuery<Perfil> consulta = em.createQuery("SELECT p FROM Perfil p WHERE p.usuario = :idUsuario", Perfil.class);
+        consulta.setParameter("idUsuario", idUsuario);
+        List<Perfil> listaPerfil = consulta.getResultList();
+
+        if (!listaPerfil.isEmpty()) {
+            return listaPerfil.get(0);
+        } else {
+            LOG.warn("No existe ningún usuario cuyo perfil tenga el ID: " + idUsuario);
+            return null;
+        }
+    }
+
 }

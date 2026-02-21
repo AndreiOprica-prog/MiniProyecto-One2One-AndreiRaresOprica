@@ -1,5 +1,7 @@
 package es.ciudadescolar.dominio.modelo;
 
+import java.io.Serializable;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,14 +15,14 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "perfil")
-public class Perfil
+public class Perfil implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     @Id // El atributo encontrado debajo de esta sentencia es la clave primaria de la tabla
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Fijar la clase como una entidad *solo se una en la clave primaria*
     @Column(name = "id_perfil") // Vincular el atributo a la columna *el nombre tiene que ser el de la tabla*
-    private Long id_perfil;
+    private Integer id_perfil;
 
     @Column(name = "username")
     private String username;
@@ -28,15 +30,15 @@ public class Perfil
     @Column(name = "password_hash")
     private String contrasenia;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario", unique = true, nullable = false)
-	private Long usuario;
+	private Usuario usuario;
 
-    public Long getId_perfil() {
+    public Integer getId_perfil() {
         return id_perfil;
     }
 
-    public void setId_perfil(Long id_perfil) {
+    public void setId_perfil(Integer id_perfil) {
         this.id_perfil = id_perfil;
     }
 
@@ -56,17 +58,18 @@ public class Perfil
         this.contrasenia = contrasenia;
     }
 
-    public Long getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Long usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    public Perfil(String username, String contrasenia) {
+    public Perfil(String username, String contrasenia, Usuario usuario) {
         this.username = username;
         this.contrasenia = contrasenia;
+        this.usuario = usuario;
     }
 
     public Perfil() {}
